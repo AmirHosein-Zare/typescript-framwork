@@ -3,9 +3,9 @@ import IApp from "./interface/IApp";
 
 export default class App implements IApp{
     private _app: Express;
-    private _port: String;
+    private _port: String | Number;
 
-    constructor(app: Express, port: String){
+    constructor(app: Express, port: String | Number){
         this._app = app;
         this._port = port;
 
@@ -17,7 +17,7 @@ export default class App implements IApp{
         return this._app;
     }
 
-    get port(): String{
+    get port(): String | Number{
         return this._port;
     }
 
