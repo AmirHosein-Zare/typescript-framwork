@@ -2,7 +2,7 @@ import { Express } from "express"
 
 export default interface IApp {
     app: Express;
-    port: String;
+    port: String | Number;
 
     listen(): void;
 }
