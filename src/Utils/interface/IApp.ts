@@ -5,6 +5,4 @@ export default interface IApp {
     port: String;
 
     listen(): void;
-    initializeMiddleware(): void;
-    initializeController(): void;
 }
