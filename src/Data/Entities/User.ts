@@ -1,5 +1,8 @@
 export default class User{
     constructor(
-        public _id
+        public name: String,
+        public number: String,
+        public email: String,
+        public isAdmin: Boolean
     ){}
 }
