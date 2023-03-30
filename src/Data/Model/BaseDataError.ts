@@ -1,5 +1,8 @@
-export default class BaseDataError{
+export default class BaseDataError extends Error{
     constructor(
-        public message: String
-    ){}
+        public message: string,
+        public originalError?: Error
+    ){
+        super()
+    }
 }
