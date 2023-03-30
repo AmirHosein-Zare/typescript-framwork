@@ -1,5 +1,5 @@
 import User from "../Entities/User"
-import BaseDataResult from "../Model/BaseDataResult";
+import BaseDataResult from "../Helper/BaseDataResult";
 
 export default interface IUser {
     

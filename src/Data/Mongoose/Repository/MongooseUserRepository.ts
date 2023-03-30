@@ -1,7 +1,7 @@
 import User from "../../Entities/User";
 import IUser from "../../interfaces/IUser";
-import BaseDataError from "../../Model/BaseDataError";
-import BaseDataResult from "../../Model/BaseDataResult";
+import BaseDataError from "../../Helper/BaseDataError";
+import BaseDataResult from "../../Helper/BaseDataResult";
 import MongooseUserModel from "../Model/MongooseUserModel";
 
 export default class MongooseUserRepository implements IUser{
