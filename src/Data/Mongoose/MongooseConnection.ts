@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import IDatabaseService from "../interfaces/Repository/IDatabaseService";
+import IDatabaseService from "../interfaces/IDatabaseService";
 import  config  from "config";
 
 export default class MongooseConnection implements IDatabaseService{
