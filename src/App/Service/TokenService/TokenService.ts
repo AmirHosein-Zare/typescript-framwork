@@ -12,6 +12,10 @@ export default class TokenService implements ITokenService {
     }
 
     async verifyToken<T>(token: string, secretKey: string): Promise<boolean | T> {
-        
+        try {
+            return await jwt.verify(token, secretKey) as T;
+        } catch (error) {
+            return false;
+        }
     }
 }
