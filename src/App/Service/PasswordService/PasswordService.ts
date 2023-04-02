@@ -11,5 +11,11 @@ export default class PasswordService implements IPasswordService {
         }
     }   
 
-    
+    async verify(password: string, hash: string): Promise<boolean> {
+        try {
+            return await bcrypt.compare(password, hash)
+        } catch (error){
+            return false;
+        }
+    }
 }
