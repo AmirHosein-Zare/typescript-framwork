@@ -1,11 +1,12 @@
 import { ITokenService } from "../../interface/ITokenService"
+import jwt from "jsonwebtoken"
 
 export default class TokenService implements ITokenService {
-    createToken(payload: any, secretKey: string, lifetime: number): Promise<string> {
+    async createToken(payload: any, secretKey: string, lifetime: number): Promise<string> {
         
     }
 
-    verifyToken<T>(token: string, secretKey: string): Promise<boolean | T> {
+    async verifyToken<T>(token: string, secretKey: string): Promise<boolean | T> {
         
     }
 }
