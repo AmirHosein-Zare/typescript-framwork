@@ -3,6 +3,7 @@ export default class User{
         public name: String,
         public number: String,
         public email: String,
-        public isAdmin: Boolean
+        public isAdmin: Boolean,
+        public password: String
     ){}
 }
