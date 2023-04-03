@@ -1,14 +1,19 @@
 import { DataTypes } from "../../Data/Types/DataTypes";
-import {id, inject, injectable} from "inversify";
+import {inject, injectable} from "inversify";
 import BaseAppResult from "../Helper/BaseAppResult";
 import User from "../../Data/Entities/User";
 import IUser from "../../Data/interfaces/IUser";
 import BaseAppError from "../Helper/BaseAppError";
 import { ResultStatus } from "../Helper/ResultStatus";
+import { AppDataTypes } from "../Types/DataTypes";
+import IPasswordService from "../interface/IPasswordService";
 
 @injectable()
 export default class Auth{
-    @inject(DataTypes.IUser) private _user : IUser;
+    constructor(
+        @inject(DataTypes.IUser) private _user : IUser,
+        @inject(AppDataTypes.IPasswordService) private _passwordService: IPasswordService,
+    ){} 
 
     async createUser(name: string, email: string, password: string, number: string): Promise<BaseAppResult<User | {id: String}>>{
         try {
@@ -21,7 +26,7 @@ export default class Auth{
                 number,
                 email,
                 false,
-                password
+                await this._passwordService.hash(password)
             );
 
             const result = await this._user.create(user);
