@@ -7,12 +7,14 @@ import BaseAppError from "../Helper/BaseAppError";
 import { ResultStatus } from "../Helper/ResultStatus";
 import { AppDataTypes } from "../Types/DataTypes";
 import IPasswordService from "../interface/IPasswordService";
+import IIDService from "../interface/IIDService";
 
 @injectable()
 export default class Auth{
     constructor(
         @inject(DataTypes.IUser) private _user : IUser,
         @inject(AppDataTypes.IPasswordService) private _passwordService: IPasswordService,
+        @inject(AppDataTypes.IDService) private _idService: IIDService
     ){} 
 
     async createUser(name: string, email: string, password: string, number: string): Promise<BaseAppResult<User | {id: String}>>{
@@ -22,6 +24,7 @@ export default class Auth{
             if(findUser.data) return new BaseAppResult<any>(null, true, ResultStatus.Duplicate, "user already exist ...");
         
             const user = new User (
+                this._idService.generate(),
                 name,
                 number,
                 email,
@@ -29,10 +32,12 @@ export default class Auth{
                 await this._passwordService.hash(password)
             );
 
-            const result = await this._user.create(user);
+            await this._user.create(user);
 
-            return new BaseAppResult<User>(
-                user,
+            return new BaseAppResult<User | {id: String}>(
+                {
+                    id: user._id
+                },
                 false,
                 ResultStatus.Success,
                 "user Created"
