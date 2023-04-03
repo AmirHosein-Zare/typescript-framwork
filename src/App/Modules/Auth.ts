@@ -83,7 +83,7 @@ export default class Auth{
                 )
             }
 
-            const generatedToken = await this._tokenService.createToken({email: findUser.data.email, password: findUser.data.password}, config.get('privateKey'), 86400);
+            const generatedToken = await this._tokenService.createToken({email: findUser.data.email, password: findUser.data.password, isAdmin: findUser.data.isAdmin}, config.get('privateKey'), 86400);
 
             return new BaseAppResult<{token: string, lifetime: number} | null>(
                 {
@@ -98,5 +98,7 @@ export default class Auth{
             return new BaseAppResult<{ token: string; lifetime: number } | null>(null, true, ResultStatus.Unknown, "Error creating user.");
         }
     }
+
+    
 
 }
