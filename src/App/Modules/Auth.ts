@@ -10,6 +10,7 @@ import IPasswordService from "../interface/IPasswordService";
 import IIDService from "../interface/IIDService";
 import { ITokenService } from "../interface/ITokenService";
 import config from "config";
+import AdminToken from "../Entities/AdminToken";
 
 @injectable()
 export default class Auth{
@@ -83,7 +84,7 @@ export default class Auth{
                 )
             }
 
-            const generatedToken = await this._tokenService.createToken({email: findUser.data.email, password: findUser.data.password, isAdmin: findUser.data.isAdmin}, config.get('privateKey'), 86400);
+            const generatedToken = await this._tokenService.createToken({id: findUser.data._id,email: findUser.data.email, password: findUser.data.password, isAdmin: findUser.data.isAdmin}, config.get('privateKey'), 86400);
 
             return new BaseAppResult<{token: string, lifetime: number} | null>(
                 {
@@ -99,6 +100,48 @@ export default class Auth{
         }
     }
 
-    
+    async verifyAdminToken(token: string): Promise<BaseAppResult<null | {id: string}>>{
+        try {
+            const tokenResult = await this._tokenService.verifyToken(token, config.get('privateKey'));
+
+            if(!tokenResult){
+                return new BaseAppResult<null | {id: string}>(
+                    null,
+                    true,
+                    ResultStatus.Invalid,
+                    "token not verified."
+                )
+            }
+
+            if((tokenResult as AdminToken).isAdmin === true){
+                return new BaseAppResult<null | {id: string}>(
+                    {
+                        id: (tokenResult as AdminToken)._id
+                    },
+                    false,
+                    ResultStatus.Success,
+                    "Success"
+                )
+            }
+
+            return new BaseAppResult<null | {id: string}>(
+                {
+                    id: (tokenResult as AdminToken)._id
+                },
+                true,
+                ResultStatus.NotMatch,
+                "Not Admin"
+            )
+
+
+        } catch (error) {
+            return new BaseAppResult<null | {id: string}>(
+                null,
+                true,
+                ResultStatus.Invalid,
+                "error while verify admin token"
+            )
+        }
+    }
 
 }
