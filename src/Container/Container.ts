@@ -11,6 +11,7 @@ import { DataTypes } from "../Data/Types/DataTypes";
 import MongooseConnection from "../Data/Mongoose/MongooseConnection";
 import IUser from "../Data/interfaces/IUser";
 import MongooseUserRepository from "../Data/Mongoose/Repository/MongooseUserRepository";
+import Auth from "../App/Modules/Auth";
 
 let container = new Container({defaultScope: "Singleton"});
 
@@ -22,5 +23,8 @@ container.bind<ITokenService>(AppDataTypes.ITokenService).to(TokenService);
 // bind database service
 container.bind<IDatabaseService>(DataTypes.IDatabaseService).to(MongooseConnection);
 container.bind<IUser>(DataTypes.IUser).to(MongooseUserRepository);
+
+// bind app layer
+container.bind<Auth>(Auth).to(Auth);
 
 export {container};
