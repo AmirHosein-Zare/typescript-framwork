@@ -3,12 +3,12 @@ import Auth from "../../App/Modules/Auth";
 import Controller from "../Controller";
 import { ResultStatus } from "../../App/Helper/ResultStatus";
 import baseResponse from "../../Helper/BaseResponse";
+import { container } from "../../Container/Container";
 
-export default class AuthController extends Controller{
+export class AuthController extends Controller{
 
     constructor(
-        private _auth: Auth,
-
+        private _auth: Auth
     ){
         super("/api");
     }
@@ -24,4 +24,22 @@ export default class AuthController extends Controller{
         }
         return baseResponse(res, result.data, "User created.");
     }
+
+}
+
+export default function setupAuth(): AuthController{
+    const controller = new AuthController(
+        container.get(Auth)
+    )
+
+    controller.addAction(
+        "/",
+        "post",
+        controller.addUser,
+        [
+            
+        ]
+    );
+
+    return controller;
 }
