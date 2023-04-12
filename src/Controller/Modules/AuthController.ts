@@ -7,6 +7,8 @@ export default class AuthController extends Controller{
         private _auth: Auth,
 
     ){
-        super();
+        super("/api");
     }
+
+    
 }
