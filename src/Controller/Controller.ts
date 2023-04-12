@@ -1,13 +1,16 @@
 import { NextFunction, Request, Response, Router } from "express";
 import IController from "./interface/IController";
+import asyncWrapper from "../Helper/asyncWrapper";
 
 export default class Controller implements IController{
     constructor(
         public router: Router,
         public path: string
-    ){}
+    ){
+        this.actions = [];
+    }
 
-    private action: Array<{
+    private actions: Array<{
         path: string,
         method: "get" | "post" | "put" | "delete",
         handler: (req: Request, res: Response, next?: NextFunction) => void,
@@ -28,5 +31,23 @@ export default class Controller implements IController{
         })
     }
 
-    
+    public setupActions(): Router{
+        this.actions.forEach(action => {
+            switch (action.method) {
+                case "get":
+                    this.router.get(action.path, action.middlewares ?? [],action.handler);
+                    break;
+                case "post":
+                    this.router.post(action.path, action.middlewares ?? [], action.handler);
+                    break;
+                case "put": 
+                    this.router.put(action.path, action.middlewares ?? [], action.handler);
+                case "delete":
+                    this.router.delete(action.path, action.middlewares ?? [], action.handler);
+            
+            }
+        })
+        return this.router;
+    }
+
 }
