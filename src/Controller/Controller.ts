@@ -3,11 +3,13 @@ import IController from "./interface/IController";
 import asyncWrapper from "../Helper/asyncWrapper";
 
 export default class Controller implements IController{
+    private readonly router: Router;
+
     constructor(
-        public router: Router,
         public path: string
     ){
         this.actions = [];
+        this.router = Router();
     }
 
     private actions: Array<{
