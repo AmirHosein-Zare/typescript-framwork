@@ -23,7 +23,7 @@ export default class Controller implements IController{
         handler: (req: Request, res: Response, next?: NextFunction) => void,
         middlewares?: ((req: Request, res: Response, next?: NextFunction) => void)[]
     ): void{
-        this.action.push({
+        this.actions.push({
             path: this.path + path,
             method,
             handler,
