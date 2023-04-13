@@ -1,5 +1,6 @@
 import { Express } from "express";
 import IApp from "./interface/IApp";
+import Router from "../Router/Router";
 
 export default class App implements IApp{
     private _app: Express;
@@ -28,7 +29,7 @@ export default class App implements IApp{
     }
 
     private initializeController(): void {
-
+        new Router().init(this._app);       
     }
 
     private initializeMiddleware(): void{
