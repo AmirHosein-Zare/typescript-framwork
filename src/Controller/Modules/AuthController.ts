@@ -13,7 +13,7 @@ export class AuthController extends Controller{
         super("/api");
     }
 
-    async addUser(req: Request, res: Response, next: NextFunction){
+    async addUser(req: Request, res: Response, next: NextFunction | undefined){
         const result = await this._auth.createUser(req.body.name, req.body.email, req.body.password, req.body.number);
         if(result.status !== ResultStatus.Success){
             if (result.status === ResultStatus.Duplicate) {
@@ -27,7 +27,7 @@ export class AuthController extends Controller{
 
 }
 
-export default function setupAuth(): AuthController{
+export default function (): AuthController{
     const controller = new AuthController(
         container.get(Auth)
     )
