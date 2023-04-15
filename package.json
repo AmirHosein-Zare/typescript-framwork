@@ -21,7 +21,8 @@
     "joi": "^17.8.4",
     "jsonwebtoken": "^9.0.0",
     "mongoose": "^7.0.3",
-    "uuid": "^9.0.0"
+    "uuid": "^9.0.0",
+    "winston": "^3.8.2"
   },
   "devDependencies": {
     "@types/config": "^3.3.0",
