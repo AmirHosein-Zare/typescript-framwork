@@ -11,7 +11,6 @@ export default class App implements IApp{
         this._port = port;
 
         this.initializeController();
-        this.initializeMiddleware();
     }
 
     get app(): Express{
@@ -30,9 +29,5 @@ export default class App implements IApp{
 
     private initializeController(): void {
         new Router().init(this._app);       
-    }
-
-    private initializeMiddleware(): void{
-
     }
 }
