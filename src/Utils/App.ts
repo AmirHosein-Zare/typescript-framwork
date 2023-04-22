@@ -2,6 +2,7 @@ import { Express } from "express";
 import IApp from "./interface/IApp";
 import Router from "../Router/Router";
 import Middleware from "../Middleware/Middleware";
+import logger from "./Logger/Logger";
 
 export default class App implements IApp{
     private _app: Express;
@@ -13,6 +14,8 @@ export default class App implements IApp{
 
         this.initializeController();
         this.initializeMiddleware();
+
+        logger();
     }
 
     get app(): Express{
