@@ -3,6 +3,9 @@ import IApp from "./interface/IApp";
 import Router from "../Router/Router";
 import Middleware from "../Middleware/Middleware";
 import logger from "./Logger/Logger";
+import { container } from "../Container/Container";
+import IDatabaseService from "../Data/interfaces/IDatabaseService";
+import { DataTypes } from "../Data/Types/DataTypes";
 
 export default class App implements IApp{
     private _app: Express;
@@ -14,6 +17,7 @@ export default class App implements IApp{
 
         this.initializeController();
         this.initializeMiddleware();
+        this.connectToMongo();
 
         logger();
     }
@@ -38,5 +42,9 @@ export default class App implements IApp{
 
     private initializeMiddleware(): void{
         new Middleware().init(this._app);
+    }
+
+    private async connectToMongo(): Promise<void>{
+        await container.get<IDatabaseService>(DataTypes.IDatabaseService).connect();
     }
 }
