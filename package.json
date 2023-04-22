@@ -25,7 +25,8 @@
     "mongoose": "^7.0.3",
     "morgan": "^1.10.0",
     "uuid": "^9.0.0",
-    "winston": "^3.8.2"
+    "winston": "^3.8.2",
+    "winston-mongodb": "^5.1.1"
   },
   "devDependencies": {
     "@types/config": "^3.3.0",
